@@ -1,9 +1,11 @@
 from flask import jsonify, make_response, Response
 import json
 
-RESPONSE = {
-    200: "OK", 201: "Created", 400: "Bad Request", 401: "Unauthorized", 403: "Forbidden", 404: "Not Found",
-    405: "Method Not Allowed", 408: "Request Timeout", 500: "Internal Server Error", 502: "Bad Gateway"
+STATUS_CODE = {
+    200: "OK", 201: "Created", 202: "Accepted", 301: "Moved Permanently", 304: "Not Modified",
+    307: "Temporary Redirect", 400: "Bad Request", 401: "Unauthorized", 403: "Forbidden", 404: "Not Found",
+    405: "Method Not Acceptable", 406: "Unacceptable", 413: "Payload too large", 415: "Unsupported Media Type",
+    429: "Too Many Requests", 500: "Internal Server Error", 501: "Not Implemented", 503: "Service Unavailable"
 }
 
 
@@ -24,7 +26,7 @@ class CustomResponse(Response):
         self.set_message()
 
     def set_message(self):
-        self.message = RESPONSE[self.status_code]
+        self.message = STATUS_CODE[self.status_code]
         self.data_response['message'] = self.message
 
     def set_additional_message(self, message):
